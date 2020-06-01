@@ -16,6 +16,8 @@
 
 <br><br>
 
+![typ.life](static/typ.life.png)
+
 ## Usage
 
 `esc` - change quote
