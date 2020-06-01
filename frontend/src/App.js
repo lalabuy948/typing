@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Axios from 'axios';
 
 import { useKeyPress } from './hooks/keypress';
-import { currentTime } from './service/time';
+import { currentTime } from './services/time';
 
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from "./styles/global";
@@ -25,7 +25,8 @@ function App() {
   const [typedChars, setTypedChars] = useState('');
 
   async function fetchQuote() {
-    const response = await Axios('http://localhost:8080/api/v1/quote');
+    const response = await Axios(process.env.REACT_APP_QUOTE_URL);
+
 
     setOutgoingChars('')
     setLeftPadding(new Array(10).fill(' ').join(''))
@@ -38,18 +39,18 @@ function App() {
     fetchQuote();
   }, []);
 
+  const escFunction = useCallback((event) => {
+    if(event.keyCode === 27) {
+      fetchQuote();
+    }
+  }, []);
+
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false);
 
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
-  }, []);
-
-  const escFunction = useCallback((event) => {
-    if(event.keyCode === 27) {
-      fetchQuote();
-    }
   }, []);
 
   useKeyPress(key => {
