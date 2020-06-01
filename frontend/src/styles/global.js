@@ -26,13 +26,18 @@ body {
     opacity: 0.5;
 }
 
-.Character {
+.hidden-input {
+    opacity: 0;
+    width: '0px';
+}
+
+.character {
     white-space: pre;
     line-height: 1.6rem;
     font-size: 2rem;
 }
 
-.Character-current {
+.character-current {
     color: ${props => props.theme.currentText}
 }
 
@@ -41,7 +46,7 @@ body {
     opacity: 0.5;
 }
 
-.Character-out {
+.character-out {
     color: ${props => props.theme.typedText};
 }
 

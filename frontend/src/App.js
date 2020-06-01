@@ -27,7 +27,6 @@ function App() {
   async function fetchQuote() {
     const response = await Axios(process.env.REACT_APP_QUOTE_URL);
 
-
     setOutgoingChars('')
     setLeftPadding(new Array(10).fill(' ').join(''))
     setInitialWords(response.data);
@@ -51,7 +50,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
-  }, []);
+  });
 
   useKeyPress(key => {
     if (!startTime) {
@@ -97,18 +96,18 @@ function App() {
     <ThemeProvider theme={darkTheme}>
     <>
     <GlobalStyles />
-
         <header className="app-header">
 
           <p className="whole-quote">
             { initialWords.Quote }
           </p>
 
-          <p className="Character">
-            <span className="Character-out">
+          <p className="character">
+            <input className="hidden-input" ref={input => input && input.focus()}/>
+            <span className="character-out">
                 {(leftPadding + outgoingChars).slice(-10)}
             </span>
-            <span className="Character-current" style={currentCharStyle}>{currentChar === ' ' ? '_' : currentChar }</span>
+            <span className="character-current" style={currentCharStyle}>{currentChar === ' ' ? '_' : currentChar }</span>
             <span>{incomingChars.substr(0, 20)}</span>
           </p>
 
