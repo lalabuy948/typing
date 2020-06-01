@@ -47,11 +47,19 @@ body {
 }
 
 .character-out {
-    color: ${props => props.theme.typedText};
+    color: ${props => props.theme.text};
+    opacity: 0.5;
 }
 
 .stats-paragraph {
     opacity: 0.5;
+}
+
+.footer {
+    opacity: 0.5;
+    font-size: 1rem;
+    position: fixed;
+    bottom: 0;
 }
 
 `

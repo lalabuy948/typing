@@ -6,11 +6,13 @@ import { useKeyPress } from './hooks/keypress';
 import { currentTime } from './services/time';
 
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from "./styles/global";
-import { darkTheme } from "./styles/theme";
-
+import { GlobalStyles } from './styles/global';
+import { dark, light, mint } from './styles/theme';
+import { getNameByTheme, getThemeByName } from './styles/themeSwitcher';
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState( dark )
+
   const [initialWords, setInitialWords] = useState({ Quote: ''})
   const [leftPadding, setLeftPadding] = useState(new Array(10).fill(' ').join(''));
   const [outgoingChars, setOutgoingChars] = useState('');
@@ -24,33 +26,57 @@ function App() {
   const [accuracy, setAccuracy] = useState(0);
   const [typedChars, setTypedChars] = useState('');
 
+  // fetch new quote aka reset
   async function fetchQuote() {
     const response = await Axios(process.env.REACT_APP_QUOTE_URL);
 
-    setOutgoingChars('')
-    setLeftPadding(new Array(10).fill(' ').join(''))
+
+    setLeftPadding(new Array(10).fill(' ').join(''));
     setInitialWords(response.data);
     setCurrentChar(response.data.Quote.charAt(0));
     setIncomingChars(response.data.Quote.substr(1));
+    setWpm(0);
+    setStartTime();
+    setWordCount(0);
   }
 
   useEffect(() => {
+    if (localStorage.getItem('theme') === null) {
+      localStorage.setItem('theme', getNameByTheme(currentTheme));
+    }
+    setCurrentTheme(getThemeByName(localStorage.getItem('theme')));
+
     fetchQuote();
+
+    document.addEventListener("keydown", pressKeyHandler, false);
+
+    return () => {
+      document.removeEventListener("keydown", pressKeyHandler, false);
+    };
   }, []);
 
-  const escFunction = useCallback((event) => {
+  const pressKeyHandler = useCallback((event) => {
     if(event.keyCode === 27) {
       fetchQuote();
     }
+
+    if (event.keyCode === 112) {
+      setCurrentTheme( light )
+      localStorage.setItem('theme', getNameByTheme(light));
+    }
+
+    if (event.keyCode === 113) {
+      setCurrentTheme( dark )
+      localStorage.setItem('theme', getNameByTheme(dark));
+    }
+
+    if (event.keyCode === 114) {
+      setCurrentTheme( mint )
+      localStorage.setItem('theme', getNameByTheme(mint));
+    }
+
   }, []);
 
-  useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
-
-    return () => {
-      document.removeEventListener("keydown", escFunction, false);
-    };
-  });
 
   useKeyPress(key => {
     if (!startTime) {
@@ -80,7 +106,7 @@ function App() {
         setWpm(((wordCount + 1) / durationInMinutes).toFixed(2));
       }
     } else {
-      setCurrentCharStyle({"color": '#f73859'})
+      setCurrentCharStyle({"color": currentTheme.misstakeColor})
     }
 
     const updatedTypedChars = typedChars + key;
@@ -93,7 +119,7 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={currentTheme}>
     <>
     <GlobalStyles />
         <header className="app-header">
@@ -122,7 +148,6 @@ function App() {
           </h4>
 
         </header>
-
       </>
     </ThemeProvider>
   );
