@@ -38,6 +38,8 @@ function App() {
     setWpm(0);
     setStartTime();
     setWordCount(0);
+    setOutgoingChars('');
+    setTypedChars('');
   }
 
   useEffect(() => {
