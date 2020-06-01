@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useState } from 'react';
 import Axios from 'axios';
 
@@ -36,6 +36,20 @@ function App() {
 
   useEffect(() => {
     fetchQuote();
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, []);
+
+  const escFunction = useCallback((event) => {
+    if(event.keyCode === 27) {
+      fetchQuote();
+    }
   }, []);
 
   useKeyPress(key => {
@@ -82,12 +96,13 @@ function App() {
     <ThemeProvider theme={darkTheme}>
     <>
     <GlobalStyles />
-      <div className="App">
-        <header className="App-header">
 
-          {/* <p>
+        <header className="app-header">
+
+          <p className="whole-quote">
             { initialWords.Quote }
-          </p> */}
+          </p>
+
           <p className="Character">
             <span className="Character-out">
                 {(leftPadding + outgoingChars).slice(-10)}
@@ -102,14 +117,12 @@ function App() {
             © { initialWords.Author }
           </p>
 
-          <h4>
+          <h4 className="stats-paragraph">
             WPM: {wpm} | ACC: {accuracy}%
           </h4>
 
-          <button onClick={fetchQuote}>redo</button>
-
         </header>
-      </div>
+
       </>
     </ThemeProvider>
   );

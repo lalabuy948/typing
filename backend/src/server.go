@@ -10,10 +10,11 @@ import (
 
 type Server struct {
 	quotes *[]Quote
+	logger *log.Logger
 }
 
-func NewServer(quotes *[]Quote) *Server {
-	return &Server{quotes}
+func NewServer(quotes *[]Quote, logger *log.Logger) *Server {
+	return &Server{quotes, logger}
 }
 
 func enableCors(w *http.ResponseWriter) {
@@ -21,7 +22,9 @@ func enableCors(w *http.ResponseWriter) {
 }
 
 func (s *Server) quoteController(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
+	if IsDev() {
+		enableCors(&w)
+	}
 
 	randomSource := rand.NewSource(int64(rand.Uint64()))
 	random := rand.New(randomSource)
@@ -31,6 +34,7 @@ func (s *Server) quoteController(w http.ResponseWriter, r *http.Request) {
 
 	js, err := json.Marshal(randomQuote)
 	if err != nil {
+		s.logger.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -46,7 +50,10 @@ func (s *Server) Run(port string) {
 	}
 
 	fmt.Println("Running quotes server on localhost:" + port)
-	log.Fatal(httpServer.ListenAndServe())
+	err := httpServer.ListenAndServe()
+	if err != nil {
+		s.logger.Println(err)
+	}
 }
 
 func (s *Server) Handler() http.Handler {

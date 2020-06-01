@@ -2,20 +2,27 @@ package main
 
 import (
 	"backend/src"
+	"log"
 	"os"
 )
 
-func getEnv(key, fallback string) string {
-	if value, ok := os.LookupEnv(key); ok {
-		return value
-	}
-	return fallback
-}
-
 func main() {
-	quotes, _ := src.ParseJsonQuotes()
+	f, err := os.OpenFile("server-error.log",
+		os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
-	server := src.NewServer(&quotes)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
 
-	server.Run(getEnv("PORT", "8080"))
+	logger := log.New(f, "prefix", log.LstdFlags)
+
+	quotes, err := src.ParseJsonQuotes()
+	if err != nil {
+		logger.Println(err)
+	}
+
+	server := src.NewServer(&quotes, logger)
+
+	server.Run(src.GetEnv("PORT", "8080"))
 }

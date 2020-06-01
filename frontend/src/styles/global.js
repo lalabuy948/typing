@@ -9,6 +9,23 @@ body {
     text-align: center;
 }
 
+.app-header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+
+    background-color: ${props => props.theme.background};
+    color: ${props => props.theme.text};
+}
+
+.whole-quote {
+    width: 60vh;
+    opacity: 0.5;
+}
+
 .Character {
     white-space: pre;
     line-height: 1.6rem;
@@ -21,22 +38,15 @@ body {
 
 .author-paragraph {
     font-size: 1.5rem;
+    opacity: 0.5;
 }
 
 .Character-out {
     color: ${props => props.theme.typedText};
 }
 
-.App-header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-
-    background-color: ${props => props.theme.background};
-    color: ${props => props.theme.text};
+.stats-paragraph {
+    opacity: 0.5;
 }
 
 `
