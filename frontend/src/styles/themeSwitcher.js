@@ -9,6 +9,8 @@ export function getNameByTheme(theme) {
             return 'light'
         case mint:
             return 'mint'
+        default:
+            return 'dark'
     };
 };
 
@@ -20,5 +22,7 @@ export function getThemeByName(name) {
             return light
         case 'mint':
             return mint
+        default:
+            return dark
     };
 };

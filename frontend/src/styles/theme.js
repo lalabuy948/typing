@@ -18,3 +18,5 @@ export const mint = {
     currentText: '#eeeeee',
     misstakeColor: '#fc5185',
 }
+
+export const themesArray = [dark, light, mint]

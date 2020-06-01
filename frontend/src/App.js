@@ -7,11 +7,11 @@ import { currentTime } from './services/time';
 
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/global';
-import { dark, light, mint } from './styles/theme';
+import { themesArray } from './styles/theme';
 import { getNameByTheme, getThemeByName } from './styles/themeSwitcher';
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState( dark )
+  const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
 
   const [initialWords, setInitialWords] = useState({ Quote: ''})
   const [leftPadding, setLeftPadding] = useState(new Array(10).fill(' ').join(''));
@@ -42,11 +42,28 @@ function App() {
     setTypedChars('');
   }
 
+  const pressKeyHandler = useCallback((event) => {
+    if(event.keyCode === 27) {
+      fetchQuote();
+    }
+
+    if (event.keyCode === 37) {
+      setCurrentThemeIndex(0)
+      localStorage.setItem('theme', 0);
+    }
+
+    if (event.keyCode === 39) {
+      setCurrentThemeIndex(1)
+      localStorage.setItem('theme', 1);
+    }
+
+  }, []);
+
   useEffect(() => {
     if (localStorage.getItem('theme') === null) {
-      localStorage.setItem('theme', getNameByTheme(currentTheme));
+      localStorage.setItem('theme', currentThemeIndex);
     }
-    setCurrentTheme(getThemeByName(localStorage.getItem('theme')));
+    setCurrentThemeIndex(localStorage.getItem('theme'));
 
     fetchQuote();
 
@@ -55,30 +72,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", pressKeyHandler, false);
     };
-  }, []);
-
-  const pressKeyHandler = useCallback((event) => {
-    if(event.keyCode === 27) {
-      fetchQuote();
-    }
-
-    if (event.keyCode === 112) {
-      setCurrentTheme( light )
-      localStorage.setItem('theme', getNameByTheme(light));
-    }
-
-    if (event.keyCode === 113) {
-      setCurrentTheme( dark )
-      localStorage.setItem('theme', getNameByTheme(dark));
-    }
-
-    if (event.keyCode === 114) {
-      setCurrentTheme( mint )
-      localStorage.setItem('theme', getNameByTheme(mint));
-    }
-
-  }, []);
-
+  }, [pressKeyHandler]);
 
   useKeyPress(key => {
     if (!startTime) {
@@ -108,7 +102,7 @@ function App() {
         setWpm(((wordCount + 1) / durationInMinutes).toFixed(2));
       }
     } else {
-      setCurrentCharStyle({"color": currentTheme.misstakeColor})
+      setCurrentCharStyle({"color": themesArray[currentThemeIndex].misstakeColor})
     }
 
     const updatedTypedChars = typedChars + key;
@@ -121,7 +115,7 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ThemeProvider theme={themesArray[currentThemeIndex]}>
     <>
     <GlobalStyles />
         <header className="app-header">
