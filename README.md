@@ -22,6 +22,8 @@
 
 `esc` - change quote
 
+`<-`, `->` - previous/next theme
+
 Inspired by: [typings.gg](https://typings.gg/) [typing.works](https://typing.works/)
 
 [Quotes](https://www.kaggle.com/akmittal/quotes-dataset) | [Frontend starter](https://medium.com/better-programming/create-a-typing-game-with-react-hooks-usekeypress-and-faker-28bbc7919820)
