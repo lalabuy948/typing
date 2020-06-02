@@ -3,9 +3,11 @@
 
 *.DS_Store
 
-*.log
-
 vendor/
 
 .env
 .env.**
+
+*.log
+*.out
+*.pid
