@@ -3,8 +3,6 @@
 
 *.DS_Store
 
-vendor/
-
 .env
 .env.**
 
