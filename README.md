@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://goreportcard.com/report/github.com/lalabuy948/typing"><img src="https://goreportcard.com/badge/github.com/lalabuy948/typing"/></a>
-  <a href="backend/go.mod"><img src="https://img.shields.io/github/go-mod/go-version/lalabuy948/logektor"/></a>
+  <a href="backend/go.mod"><img src="https://img.shields.io/github/go-mod/go-version/lalabuy948/typing"/></a>
   <a href="/LICENCE"><img src="https://img.shields.io/badge/licence-ccpl-green"/></a>
   <a href="https://typ.life/"><img src="https://img.shields.io/website-up-down-green-red/https/typ.life.svg"/></a>
 
