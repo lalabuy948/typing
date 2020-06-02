@@ -1,4 +1,4 @@
-# ln -s /var/www/typing/infra/etc/nginx/default.conf /etc/nginx/sites-available/default
+# ln -s /var/www/typing/infra/etc/nginx/default /etc/nginx/sites-available/default
 server {
 	server_name www.typ.life;
 	return 301 https://typ.life$request_uri;
