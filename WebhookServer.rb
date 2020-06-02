@@ -12,7 +12,7 @@ def verify_signature(payload_body)
     return halt 500, "Signatures didn't match!" unless Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
 end
 
-post '/payload' do
+post '/webhook' do
     payload_body = request.body.read
     verify_signature(payload_body)
 
