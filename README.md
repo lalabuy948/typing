@@ -16,7 +16,9 @@
 
 <br><br>
 
-![typ.life](static/typ.life.png)
+<div align="center">
+  <img src="./static/screenshot-typ.life.png">
+</div>
 
 ## Usage
 
