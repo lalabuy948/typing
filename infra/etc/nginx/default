@@ -1,3 +1,4 @@
+# ln -s /var/www/typing/infra/etc/nginx/default /etc/nginx/sites-available/default
 server {
 	server_name www.typ.life;
 	return 301 https://typ.life$request_uri;
@@ -29,6 +30,10 @@ server {
 		allow           all;
 		log_not_found   off;
 		access_log      off;
+	}
+
+	location /webhook {
+		proxy_pass http://localhost:4567/webhook;
 	}
 
 	location / {

@@ -3,4 +3,9 @@
 
 *.DS_Store
 
+.env
+.env.**
+
 *.log
+*.out
+*.pid
