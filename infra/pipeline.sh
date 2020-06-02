@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+cd ..
 cd backend
 docker build -t typing-backend -f Dockerfile .
 docker run -v $(pwd)/:/go/src/builder typing-backend go get
