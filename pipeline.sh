@@ -12,4 +12,4 @@ docker build -t typing-frontend -f Dockerfile .
 docker run -v $(pwd)/:/frontend typing-frontend npm install
 docker run -v $(pwd)/:/frontend typing-frontend npm run build
 cd ..
-service service nginx restart
+service nginx restart
