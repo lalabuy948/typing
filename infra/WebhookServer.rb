@@ -20,6 +20,7 @@ post '/webhook' do
     log.debug "webhook recieved... commit [#{push["head_commit"]["id"]}]"
     if push["ref"] == "refs/heads/master"
         log.debug "starting pipeline..."
-        exec("./pipeline.sh")
+        pid = spawn("./pipeline.sh")
+        Process.detach(pid)
     end
 end
