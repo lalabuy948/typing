@@ -1,6 +1,9 @@
 #!/bin/bash 
 
 cd ..
+echo "pulling repository on master..."
+git checkout master
+git pull
 cd backend
 echo "building backend image..."
 docker build -t typing-backend -f Dockerfile .
