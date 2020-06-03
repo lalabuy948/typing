@@ -59,7 +59,7 @@ body {
     opacity: 0.5;
     font-size: 1rem;
     position: fixed;
-    bottom: 0;
+    bottom: 15px;
 }
 
 `
