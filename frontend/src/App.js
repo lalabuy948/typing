@@ -8,7 +8,6 @@ import { currentTime } from './services/time';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/global';
 import { themesArray } from './styles/theme';
-import { getNameByTheme, getThemeByName } from './styles/themeSwitcher';
 
 function App() {
   const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
@@ -48,13 +47,25 @@ function App() {
     }
 
     if (event.keyCode === 37) {
-      setCurrentThemeIndex(0)
-      localStorage.setItem('theme', 0);
+      const curTheme = localStorage.getItem('theme')
+      if (curTheme !== null) {
+        const nextTheme = curTheme - 1
+        if (nextTheme >= 0) {
+          setCurrentThemeIndex(nextTheme)
+          localStorage.setItem('theme', nextTheme);
+        }
+      }
     }
 
     if (event.keyCode === 39) {
-      setCurrentThemeIndex(1)
-      localStorage.setItem('theme', 1);
+      const curTheme = localStorage.getItem('theme')
+      if (curTheme !== null) {
+        const nextTheme = parseInt(curTheme) + 1
+        if (nextTheme < themesArray.length) {
+          setCurrentThemeIndex(nextTheme)
+          localStorage.setItem('theme', nextTheme);
+        }
+      }
     }
 
   }, []);
@@ -72,7 +83,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", pressKeyHandler, false);
     };
-  }, [pressKeyHandler]);
+  }, [pressKeyHandler, currentThemeIndex]);
 
   useKeyPress(key => {
     if (!startTime) {
@@ -143,6 +154,7 @@ function App() {
             WPM: {wpm} | ACC: {accuracy}%
           </h4>
 
+          <div className="footer">theme: { themesArray[currentThemeIndex].name } | <a href="https://github.com/lalabuy948/typing">github</a></div>
         </header>
       </>
     </ThemeProvider>

@@ -3,6 +3,8 @@ export const dark = {
     text: '#ffffff',
     currentText: '#09d3ac',
     misstakeColor: '#f73859',
+
+    name: 'dark'
 }
 
 export const light = {
@@ -10,6 +12,8 @@ export const light = {
     text: '#303841',
     currentText: '#6639a6',
     misstakeColor: '#f54291',
+
+    name: 'light'
 }
 
 export const mint = {
@@ -17,6 +21,26 @@ export const mint = {
     text: '#3fc1c9',
     currentText: '#eeeeee',
     misstakeColor: '#fc5185',
+
+    name: 'mint'
 }
 
-export const themesArray = [dark, light, mint]
+export const frozenLama = {
+    background: '#e4e4e4',
+    text: '#54caeb',
+    currentText: '#4dd9db',
+    misstakeColor: '#dd8cdf',
+
+    name: 'frozen lama'
+}
+
+export const themesArray = [dark, light, mint, frozenLama]
+
+// export const themeStub = {
+//     background: '#',
+//     text: '#',
+//     currentText: '#',
+//     misstakeColor: '#',
+//
+//     name: 'theme name'
+// }
