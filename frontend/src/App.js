@@ -19,6 +19,8 @@ function App() {
   const [incomingChars, setIncomingChars] = useState('');
 
   const [currentCharStyle, setCurrentCharStyle] = useState();
+  const [statsStyle, setStatsStyle] = useState({ "opacity": 0.5})
+
   const [startTime, setStartTime] = useState();
   const [wordCount, setWordCount] = useState(0);
   const [wpm, setWpm] = useState(0);
@@ -96,6 +98,16 @@ function App() {
     if (key === currentChar) {
       setCurrentCharStyle()
 
+      if (incomingChars === '') {
+        setStatsStyle({
+          "opacity": 1,
+        })
+      } else {
+        setStatsStyle({
+          "opacity": 0.5,
+        })
+      }
+
       if (leftPadding.length > 0) {
         setLeftPadding(leftPadding.substring(1));
       }
@@ -112,6 +124,7 @@ function App() {
         const durationInMinutes = (currentTime() - startTime) / 60000.0;
         setWpm(((wordCount + 1) / durationInMinutes).toFixed(2));
       }
+
     } else {
       setCurrentCharStyle({"color": themesArray[currentThemeIndex].misstakeColor})
     }
@@ -150,7 +163,7 @@ function App() {
             © { initialWords.Author }
           </p>
 
-          <h4 className="stats-paragraph">
+          <h4 className="stats-paragraph" style={statsStyle}>
             WPM: {wpm} | ACC: {accuracy}%
           </h4>
 

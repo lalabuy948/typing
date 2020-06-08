@@ -26,10 +26,10 @@ export const mint = {
 }
 
 export const frozenLama = {
-    background: '#e4e4e4',
-    text: '#54caeb',
-    currentText: '#4dd9db',
-    misstakeColor: '#dd8cdf',
+    background: '#5c2a9d',
+    text: '#97e5ef',
+    currentText: '#5fdde5',
+    misstakeColor: '#eb6383',
 
     name: 'frozen lama'
 }

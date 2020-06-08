@@ -51,9 +51,9 @@ body {
     opacity: 0.5;
 }
 
-.stats-paragraph {
-    opacity: 0.5;
-}
+// .stats-paragraph {
+//     opacity: 0.5;
+// }
 
 .footer {
     opacity: 0.5;
