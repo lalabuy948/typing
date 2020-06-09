@@ -10,27 +10,26 @@ import { GlobalStyles } from './styles/global';
 import { themesArray } from './styles/theme';
 
 function App() {
-  const [currentThemeIndex, setCurrentThemeIndex] = useState(0);
+  const [ currentThemeIndex, setCurrentThemeIndex ] = useState(0);
 
-  const [initialWords, setInitialWords] = useState({ Quote: ''})
-  const [leftPadding, setLeftPadding] = useState(new Array(10).fill(' ').join(''));
-  const [outgoingChars, setOutgoingChars] = useState('');
-  const [currentChar, setCurrentChar] = useState('');
-  const [incomingChars, setIncomingChars] = useState('');
+  const [ initialWords, setInitialWords ] = useState({ Quote: '' })
+  const [ leftPadding, setLeftPadding ] = useState(new Array(10).fill(' ').join(''));
+  const [ outgoingChars, setOutgoingChars ] = useState('');
+  const [ currentChar, setCurrentChar ] = useState('');
+  const [ incomingChars, setIncomingChars ] = useState('');
 
-  const [currentCharStyle, setCurrentCharStyle] = useState();
-  const [statsStyle, setStatsStyle] = useState({ "opacity": 0.5})
+  const [ currentCharStyle, setCurrentCharStyle ] = useState();
+  const [ statsStyle, setStatsStyle ] = useState({ 'opacity': 0.5 })
 
-  const [startTime, setStartTime] = useState();
-  const [wordCount, setWordCount] = useState(0);
-  const [wpm, setWpm] = useState(0);
-  const [accuracy, setAccuracy] = useState(0);
-  const [typedChars, setTypedChars] = useState('');
+  const [ startTime, setStartTime ] = useState();
+  const [ wordCount, setWordCount ] = useState(0);
+  const [ wpm, setWpm ] = useState(0);
+  const [ accuracy, setAccuracy ] = useState(0);
+  const [ typedChars, setTypedChars ] = useState('');
 
   // fetch new quote aka reset
   async function fetchQuote() {
     const response = await Axios(process.env.REACT_APP_QUOTE_URL);
-
 
     setLeftPadding(new Array(10).fill(' ').join(''));
     setInitialWords(response.data);
@@ -49,22 +48,22 @@ function App() {
     }
 
     if (event.keyCode === 37) {
-      const curTheme = localStorage.getItem('theme')
+      const curTheme = localStorage.getItem('theme');
       if (curTheme !== null) {
-        const nextTheme = curTheme - 1
+        const nextTheme = curTheme - 1;
         if (nextTheme >= 0) {
-          setCurrentThemeIndex(nextTheme)
+          setCurrentThemeIndex(nextTheme);
           localStorage.setItem('theme', nextTheme);
         }
       }
     }
 
     if (event.keyCode === 39) {
-      const curTheme = localStorage.getItem('theme')
+      const curTheme = localStorage.getItem('theme');
       if (curTheme !== null) {
-        const nextTheme = parseInt(curTheme) + 1
+        const nextTheme = parseInt(curTheme) + 1;
         if (nextTheme < themesArray.length) {
-          setCurrentThemeIndex(nextTheme)
+          setCurrentThemeIndex(nextTheme);
           localStorage.setItem('theme', nextTheme);
         }
       }
@@ -80,12 +79,12 @@ function App() {
 
     fetchQuote();
 
-    document.addEventListener("keydown", pressKeyHandler, false);
+    document.addEventListener('keydown', pressKeyHandler, false);
 
     return () => {
-      document.removeEventListener("keydown", pressKeyHandler, false);
+      document.removeEventListener('keydown', pressKeyHandler, false);
     };
-  }, [pressKeyHandler, currentThemeIndex]);
+  }, [ pressKeyHandler, currentThemeIndex ]);
 
   useKeyPress(key => {
     if (!startTime) {
@@ -96,16 +95,16 @@ function App() {
     let updatedIncomingChars = incomingChars;
 
     if (key === currentChar) {
-      setCurrentCharStyle()
+      setCurrentCharStyle();
 
       if (incomingChars === '') {
         setStatsStyle({
-          "opacity": 1,
-        })
+          'opacity': 1,
+        });
       } else {
         setStatsStyle({
-          "opacity": 0.5,
-        })
+          'opacity': 0.5,
+        });
       }
 
       if (leftPadding.length > 0) {
@@ -126,7 +125,7 @@ function App() {
       }
 
     } else {
-      setCurrentCharStyle({"color": themesArray[currentThemeIndex].misstakeColor})
+      setCurrentCharStyle({ 'color': themesArray[ currentThemeIndex ].misstakeColor });
     }
 
     const updatedTypedChars = typedChars + key;
@@ -139,38 +138,38 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={themesArray[currentThemeIndex]}>
-    <>
-    <GlobalStyles />
-        <header className="app-header">
+      <ThemeProvider theme={ themesArray[ currentThemeIndex ] }>
+          <>
+              <GlobalStyles />
+              <header className="app-header">
 
-          <p className="whole-quote">
-            { initialWords.Quote }
-          </p>
+                  <p className="whole-quote">
+                      { initialWords.Quote }
+                  </p>
 
-          <p className="character">
-            <input className="hidden-input" ref={input => input && input.focus()}/>
-            <span className="character-out">
-                {(leftPadding + outgoingChars).slice(-10)}
-            </span>
-            <span className="character-current" style={currentCharStyle}>{currentChar === ' ' ? '_' : currentChar }</span>
-            <span>{incomingChars.substr(0, 20)}</span>
-          </p>
+                  <p className="character">
+                      <input className="hidden-input" ref={ input => input && input.focus() }/>
+                      <span className="character-out">
+                          {(leftPadding + outgoingChars).slice(-10)}
+                      </span>
+                      <span className="character-current" style={ currentCharStyle }>{currentChar === ' ' ? '_' : currentChar }</span>
+                      <span>{incomingChars.substr(0, 20)}</span>
+                  </p>
 
-          <br/>
+                  <br/>
 
-          <p className="author-paragraph">
-            © { initialWords.Author }
-          </p>
+                  <p className="author-paragraph">
+                      © { initialWords.Author }
+                  </p>
 
-          <h4 className="stats-paragraph" style={statsStyle}>
-            WPM: {wpm} | ACC: {accuracy}%
-          </h4>
+                  <h4 className="stats-paragraph" style={ statsStyle }>
+                      WPM: {wpm} | ACC: {accuracy}%
+                  </h4>
 
-          <div className="footer">theme: { themesArray[currentThemeIndex].name } | <a href="https://github.com/lalabuy948/typing">github</a></div>
-        </header>
-      </>
-    </ThemeProvider>
+                  <div className="footer">theme: { themesArray[ currentThemeIndex ].name } | <a href="https://github.com/lalabuy948/typing">github</a></div>
+              </header>
+          </>
+      </ThemeProvider>
   );
 }
 
