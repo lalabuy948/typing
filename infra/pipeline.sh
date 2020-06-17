@@ -4,6 +4,7 @@ cd ..
 echo "pulling repository on master..."
 git checkout master
 git pull
+service docker start
 cd backend
 echo "building backend image..."
 docker build -t typing-backend -f Dockerfile .
@@ -26,3 +27,5 @@ echo "building react application..."
 docker run -v $(pwd)/:/frontend typing-frontend npm run build
 echo "restarting nginx..."
 service nginx restart
+service docker stop
+systemctl stop containerd
