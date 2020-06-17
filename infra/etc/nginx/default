@@ -5,8 +5,8 @@ server {
 }
 
 server {
-	listen [::]:443 ssl ipv6only=on; # managed by Certbot
-	listen 443 ssl; # managed by Certbot
+	listen [::]:443 ssl http2; # managed by Certbot
+	listen 443 ssl http2; # managed by Certbot
 
 	server_name typ.life;
 
