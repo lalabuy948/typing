@@ -24,6 +24,8 @@ body {
 .whole-quote {
     width: 60vh;
     opacity: 0.5;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .hidden-input {
