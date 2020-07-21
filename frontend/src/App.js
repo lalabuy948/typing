@@ -2,6 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import { useState } from 'react';
 import Axios from 'axios';
 
+import { ESCAPE_KEY_CODE, LEFT_ARROW_KEY_CODE, RIGHT_ARROW_KEY_CODE } from './constants'
+
 import { useKeyPress } from './hooks/keypress';
 import { currentTime } from './services/time';
 
@@ -43,11 +45,12 @@ function App() {
   }
 
   const pressKeyHandler = useCallback((event) => {
-    if(event.keyCode === 27) {
+
+    if(event.keyCode == ESCAPE_KEY_CODE) {
       fetchQuote();
     }
 
-    if (event.keyCode === 37) {
+    if (event.keyCode === LEFT_ARROW_KEY_CODE) {
       const curTheme = localStorage.getItem('theme');
       if (curTheme !== null) {
         const nextTheme = curTheme - 1;
@@ -58,7 +61,7 @@ function App() {
       }
     }
 
-    if (event.keyCode === 39) {
+    if (event.keyCode === RIGHT_ARROW_KEY_CODE) {
       const curTheme = localStorage.getItem('theme');
       if (curTheme !== null) {
         const nextTheme = parseInt(curTheme) + 1;
@@ -84,7 +87,7 @@ function App() {
     return () => {
       document.removeEventListener('keydown', pressKeyHandler, false);
     };
-  }, [ pressKeyHandler, currentThemeIndex ]);
+  }, []);
 
   useKeyPress(key => {
     if (!startTime) {
@@ -125,7 +128,7 @@ function App() {
       }
 
     } else {
-      setCurrentCharStyle({ 'color': themesArray[ currentThemeIndex ].misstakeColor });
+      setCurrentCharStyle({ 'color': themesArray[ currentThemeIndex ].mistakeColor });
     }
 
     const updatedTypedChars = typedChars + key;
