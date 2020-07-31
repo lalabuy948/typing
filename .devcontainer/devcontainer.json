@@ -1,3 +1,17 @@
 {
-    "devPort": 3000
+    "name": "Typing Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        "go.gopath": "/usr/local/go"
+    },
+    "extensions": [
+        "golang.Go"
+    ],
+    "forwardPorts": [
+        8080,
+        3000
+    ]
 }
