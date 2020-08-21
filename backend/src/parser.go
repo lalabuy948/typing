@@ -8,11 +8,9 @@ import (
 
 // Quote took from https://www.kaggle.com/akmittal/quotes-dataset
 type Quote struct {
-	Quote      string   `json:"Quote"`
-	Author     string   `json:"Author"`
-	Tags       []string `json:"Tags"`
-	Popularity float64  `json:"Popularity"`
-	Category   string   `json:"Category"`
+	Author string   `json:"Author"`
+	Quote  string   `json:"Quote"`
+	Tags   []string `json:"Tags"`
 }
 
 func ParseJsonQuotes() ([]Quote, error) {
