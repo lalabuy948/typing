@@ -7,4 +7,4 @@ RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install 14 2>&1"
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends git curl zsh
+    && apt-get -y install --no-install-recommends git curl
