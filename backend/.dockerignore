@@ -3,5 +3,6 @@
 
 *.log
 *.DS_Store
+quotes.json
 
 .git

@@ -2,7 +2,9 @@
 
 cd ..
 echo "pulling repository on master..."
+git reset --hard
 git checkout master
+git reset --hard
 git pull
 service docker start
 cd backend
