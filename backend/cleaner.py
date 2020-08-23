@@ -11,7 +11,7 @@ def main():
         quotes = json.load(json_file)
         for quote in quotes:
             quoteStr = quote.get('Quote')
-            if quoteStr is not None:
+            if quoteStr is not None and len(quoteStr) <= 150:
                 flag = True
                 for char in quoteStr:
                     check = is_ascii(char)
