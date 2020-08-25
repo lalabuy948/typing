@@ -3,6 +3,11 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        "go.useGoProxyToCheckForToolUpdates": false,
+        "go.gopath": "/go"
+    },
     "extensions": [
         "golang.Go"
     ],
