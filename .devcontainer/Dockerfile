@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/go:dev-1.15
+FROM mcr.microsoft.com/vscode/devcontainers/go:dev-1.16
 
 RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install 14 2>&1"
 
