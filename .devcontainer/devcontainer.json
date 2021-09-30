@@ -1,0 +1,17 @@
+{
+    "name": "Typing Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": { 
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        "go.gopath": "/go"
+    },
+    "extensions": [
+        "golang.Go"
+    ],
+    "forwardPorts": [
+        8080,
+        3000
+    ]
+}
