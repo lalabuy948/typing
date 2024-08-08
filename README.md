@@ -8,7 +8,7 @@
   <a href="/LICENCE"><img src="https://img.shields.io/badge/licence-ccpl-green"/></a>
   <a href="https://typ.life/"><img src="https://img.shields.io/website-up-down-green-red/https/typ.life.svg"/></a>
 
-</p>
+</p> 
 
 <p align="center">
   Minimalistic typing application with real world texts.
